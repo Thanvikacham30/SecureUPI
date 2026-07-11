@@ -1,0 +1,24 @@
+import matplotlib.pyplot as plt
+import qrcode
+
+upi_id = "9705858229@axl"
+name = "Shekar"
+amount = 100.00  
+transaction_note = "shopping..."
+
+upi_url = f"upi://pay?pa={upi_id}&pn={name}&am={amount}&tn={transaction_note}"
+
+qr = qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_L,
+    box_size=10,
+    border=4,
+)
+qr.add_data(upi_url)
+qr.make(fit=True)
+
+qr_img = qr.make_image(fill='black', back_color='white')
+
+plt.imshow(qr_img, cmap='gray')
+plt.axis('off')  
+plt.show()
